@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiddingBot - Academia Research Automation Tool</title>
+    <meta name="description" content="Automate your Academia Research bidding workflow with BiddingBot. 7-day free trial available.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            color: white;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 30px;
+        }
+
+        /* Main Card */
+        .main-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #f2a65a 0%, #f7c27b 100%);
+            padding: 60px 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.3);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Download Button */
+        .download-section {
+            padding: 50px 40px;
+            text-align: center;
+            background: #f8f9fa;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            margin: 20px 0;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .download-btn::before {
+            content: "⬇ ";
+        }
+
+        .file-info {
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .sha256 {
+            margin-top: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            word-break: break-all;
+            color: #555;
+            border: 1px solid #ddd;
+        }
+
+        /* Why Section */
+        .why-section {
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #f2a65a 0%, #f7c27b 100%);
+            color: white;
+        }
+
+        .why-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .why-item {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            color: #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .why-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .why-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .why-item p {
+            line-height: 1.8;
+            color: #666;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 50px 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 15px;
+            background: #f8f9fa;
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+
+        .feature p {
+            color: #666;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .stats-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            opacity: 0.95;
+        }
+
+        .stat-card p {
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 50px 40px;
+            background: white;
+        }
+
+        .pricing h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .price-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .price-card:hover {
+            border-color: #667eea;
+            transform: scale(1.05);
+        }
+
+        .price-card.popular {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .price-card.popular .price {
+            color: white;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f2a65a;
+            color: white;
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin: 20px 0;
+        }
+
+        .price small {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .duration {
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .savings {
+            background: rgba(242, 166, 90, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 10px;
+            color: #e76f51;
+            font-weight: bold;
+        }
+
+        /* Installation Steps */
+        .steps {
+            padding: 50px 40px;
+            background: #f8f9fa;
+        }
+
+        .steps h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .step {
+            display: flex;
+            align-items: start;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-right: 20px;
+        }
+
+        .step-content h3 {
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+
+        .step-content p {
+            color: #666;
+        }
+
+        /* System Requirements */
+        .requirements {
+            padding: 50px 40px;
+            background: white;
+        }
+
+        .requirements h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .req-list {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .req-list li {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 10px;
+            list-style: none;
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .req-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 15px;
+            color: #2a9d8f;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0,0,0,0.1);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .download-btn {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🤖 BiddingBot</div>
+        <div class="tagline">Automate Your Academia Research Workflow</div>
+    </header>
+
+    <div class="container">
+        <div class="main-card">
+            <!-- Hero Section -->
+            <div class="hero">
+                <div class="version-badge">Version 3.0.0</div>
+                <h1>Work Smarter, Not Harder</h1>
+                <p>Automated bidding for Academia Research platform with intelligent order filtering and priority management.</p>
+            </div>
+
+            <!-- Download Section -->
+            <div class="download-section">
+                <h2>🎉 7-Day FREE Trial</h2>
+                <p>Try all features risk-free. No credit card required!</p>
+
+                <a href="https://azxawbyccjgtqkxijrsg.supabase.co/storage/v1/object/public/updates/BiddingBot-Setup-3.0.0.exe" class="download-btn">
+                    Download BiddingBot
+                </a>
+
+                <div class="file-info">
+                    <p><strong>Version:</strong> 3.0.0 | <strong>Size:</strong> 38 MB | <strong>Platform:</strong> Windows 10/11</p>
+
+                    <details style="margin-top: 20px;">
+                        <summary style="cursor: pointer; color: #667eea; font-weight: bold;">🔐 SHA256 Checksum (Click to expand)</summary>
+                        <div class="sha256">
+                            BB5443B118C68126BFD1E860D63B38616CD7016D968787C126B94A18BBFC697E
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Why Section -->
+            <div class="why-section">
+                <h2>⚡ Why Writers Love BiddingBot</h2>
+                <div class="why-grid">
+                    <div class="why-item">
+                        <h3>😴 Stop Wasting Time</h3>
+                        <p>No more refreshing pages every 5 seconds. No more missing orders while you're in the bathroom. Let the bot do the boring work!</p>
+                    </div>
+                    <div class="why-item">
+                        <h3>💰 Earn More Money</h3>
+                        <p>Bid on high-CPP orders instantly. Never lose to faster bidders again. More successful bids = more income!</p>
+                    </div>
+                    <div class="why-item">
+                        <h3>🧘 Reduce Stress</h3>
+                        <p>Stop staring at screens for hours. Focus on writing quality work instead. The bot handles the bidding anxiety!</p>
+                    </div>
+                    <div class="why-item">
+                        <h3>🎯 Work Smarter</h3>
+                        <p>Only bid on orders you actually want. Filter out low-paying jobs. Focus on topics you excel at!</p>
+                    </div>
+                    <div class="why-item">
+                        <h3>📈 Track Performance</h3>
+                        <p>See which subjects are most profitable. Identify peak hours. Make data-driven decisions!</p>
+                    </div>
+                    <div class="why-item">
+                        <h3>🚀 Stay Competitive</h3>
+                        <p>Other writers are using bots. Don't get left behind! Level the playing field with professional automation!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🤖</div>
+                    <h3>24/7 Auto-Bidding</h3>
+                    <p>Never miss an order again! Bot monitors and bids automatically around the clock while you sleep, eat, or focus on writing.</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Smart Order Filtering</h3>
+                    <p>Set your perfect criteria: CPP range (KES 2-999+), subjects you love, academic levels, deadlines, page limits, and even blacklist keywords!</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Priority Queue System</h3>
+                    <p>Intelligent algorithm ranks orders by CPP, deadline, and your preferred subjects. Always bids on the best opportunities first!</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Lightning Fast Bidding</h3>
+                    <p>JavaScript auto-refresh (customizable 200-5000ms), multi-tab support, and optimized browser settings. Beat the competition every time!</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Beautiful Dark UI</h3>
+                    <p>Modern ttkbootstrap interface with orange accents. Easy on the eyes during long sessions. White input boxes for perfect visibility.</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <h3>Advanced Analytics</h3>
+                    <p>Track success rates, orders won/lost, peak hours analysis, performance by subject, processing times, and daily stats. SQLite database built-in!</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Sound Notifications</h3>
+                    <p>Custom sound alerts when you win an order! Adjustable volume. Never miss a successful bid even when multitasking.</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">💾</div>
+                    <h3>Session Persistence</h3>
+                    <p>Login once, stay logged in! Cookies saved securely. Resume where you left off. No repeated authentication hassles.</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Anti-Bot Detection</h3>
+                    <p>Selenium Stealth mode makes your bot undetectable. Mimics human behavior with smart delays and realistic interaction patterns.</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">⏱️</div>
+                    <h3>Customizable Timing</h3>
+                    <p>Control every delay: order cooldowns (120s default), checkbox waits, post-click delays, and polling intervals. Fine-tune to perfection!</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">📝</div>
+                    <h3>Custom Bid Messages</h3>
+                    <p>Write your own bidding message once. Bot uses it automatically for every bid. Showcase your expertise professionally!</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🌟</div>
+                    <h3>Preferred Subjects</h3>
+                    <p>Mark your strongest subjects for priority bidding! Bot gives 2x weight to your favorites. Win orders you excel at!</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Keyword Blacklist</h3>
+                    <p>Avoid orders with specific words. Filter out topics you don't want. Stay focused on work you enjoy and understand.</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">📈</div>
+                    <h3>Peak Hours Detection</h3>
+                    <p>Analytics show when orders flood in. Plan your active hours strategically. Maximize your bidding efficiency!</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Network Resilience</h3>
+                    <p>Automatic retry with exponential backoff (3 attempts default). Survives connection drops. Keeps bidding even with unstable internet!</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">💳</div>
+                    <h3>Instant Payment Activation</h3>
+                    <p>Pay via M-Pesa STK Push (1-click!). Webhook auto-activates license within seconds. No manual verification needed!</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🎁</div>
+                    <h3>7-Day Free Trial</h3>
+                    <p>Test every feature risk-free! No credit card required. Trial starts automatically on first launch. See results before you pay!</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Secure & Private</h3>
+                    <p>Credentials stored locally, never sent to our servers. Device-bound licensing. Your data stays on your computer!</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Browser Optimization</h3>
+                    <p>Auto-managed ChromeDriver, optional headless mode, disable images/CSS for speed. Every millisecond counts in bidding wars!</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">📦</div>
+                    <h3>Order Queue Management</h3>
+                    <p>Smart queue holds up to 50 orders, prevents duplicates, handles processed IDs. Efficient memory usage even during order floods!</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🎬</div>
+                    <h3>Multi-Tab Bidding</h3>
+                    <p>Process multiple orders simultaneously (up to 3 tabs). Triple your bidding capacity. More bids = more wins!</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">📱</div>
+                    <h3>Auto-Update System</h3>
+                    <p>Get notified of new versions instantly. Download with 1-click. SHA256 verification for security. Always have the latest features!</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">🎚️</div>
+                    <h3>70+ Settings</h3>
+                    <p>Every aspect is configurable! From delays to filters to browser settings. Make the bot work exactly how YOU want it!</p>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">📖</div>
+                    <h3>Complete Documentation</h3>
+                    <p>Detailed guides included: payment setup, auto-updates, troubleshooting. Plus in-app tooltips. Never feel lost!</p>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-section">
+                <h2>📊 By The Numbers</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Auto-Monitoring</div>
+                        <p>Never sleep through an order again</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">70+</div>
+                        <div class="stat-label">Customizable Settings</div>
+                        <p>Configure every aspect perfectly</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">200ms</div>
+                        <div class="stat-label">Refresh Speed</div>
+                        <p>Lightning-fast order detection</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">3x</div>
+                        <div class="stat-label">Multi-Tab Bidding</div>
+                        <p>Process multiple orders simultaneously</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pricing Section -->
+            <div class="pricing">
+                <h2>💰 Simple Pricing</h2>
+                <div class="pricing-cards">
+                    <div class="price-card">
+                        <div class="plan-name">Monthly</div>
+                        <div class="price">KES 1,000</div>
+                        <div class="duration">30 days access</div>
+                        <p>Perfect for getting started</p>
+                    </div>
+
+                    <div class="price-card popular">
+                        <div class="popular-badge">⭐ BEST VALUE</div>
+                        <div class="plan-name">3 Months</div>
+                        <div class="price">KES 2,500</div>
+                        <div class="duration">90 days access</div>
+                        <div class="savings">Save 17%</div>
+                    </div>
+
+                    <div class="price-card">
+                        <div class="plan-name">Yearly</div>
+                        <div class="price">KES 8,000</div>
+                        <div class="duration">365 days access</div>
+                        <div class="savings">Save 34%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Installation Steps -->
+            <div class="steps">
+                <h2>🚀 Quick Start Guide</h2>
+
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Download & Install</h3>
+                        <p>Click the download button above. Run the installer and follow the setup wizard. Takes less than 2 minutes!</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Start Free Trial</h3>
+                        <p>Launch BiddingBot from your Start Menu. Your 7-day trial starts automatically - no payment needed!</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Configure Filters</h3>
+                        <p>Set your preferred subjects, CPP range, and other filters. The bot will only bid on orders matching your criteria.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Start Bidding</h3>
+                        <p>Enter your Academia Research credentials and click Start. The bot monitors orders 24/7 and bids automatically!</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Subscribe After Trial</h3>
+                        <p>When your trial expires, go to License tab. Enter your M-Pesa number, choose a plan, and pay via STK Push. Instant activation!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Requirements -->
+            <div class="requirements">
+                <h2>💻 System Requirements</h2>
+                <ul class="req-list">
+                    <li>Windows 10 or Windows 11 (64-bit)</li>
+                    <li>4 GB RAM minimum (8 GB recommended)</li>
+                    <li>200 MB free disk space</li>
+                    <li>Stable internet connection</li>
+                    <li>Valid Academia Research account</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 BiddingBot. All rights reserved.</p>
+        <p style="margin-top: 10px;">
+            <a href="https://writers.academia-research.com/">Academia Research</a> |
+            Need help? Contact support
+        </p>
+    </footer>
+</body>
+</html>
